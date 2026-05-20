@@ -554,3 +554,208 @@ tooltip:hover span:nth-child(2) {
         max-width: 100%;
     }
 }
+
+/* ===== ESTILOS PARA TABS Y FRACTAL ===== */
+
+#tabs-container {
+    display: flex;
+    gap: 0.5rem;
+    margin: 1.5rem 0 1rem 0;
+    border-bottom: 2px solid #e0e0e0;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.tab-btn {
+    padding: 0.7rem 1.5rem;
+    border: none;
+    background: #f5f5f5;
+    color: #666;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 1rem 1rem 0 0;
+    transition: all 0.3s ease;
+    font-family: 'Share Tech', monospace;
+    font-size: 1rem;
+    border-bottom: 3px solid transparent;
+}
+
+.tab-btn:hover {
+    background: #e8f8f5;
+    color: #2ecc71;
+}
+
+.tab-btn.active {
+    background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+    color: #fff;
+    border-bottom: 3px solid #2ecc71;
+    box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+}
+
+.tab-section {
+    display: none;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.tab-section.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#fractal-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1300px; /* ANTES: 900px. Ahora el contenedor principal se expande en PC */
+    margin: 0 auto;
+}
+
+#fractal-canvas {
+    width: 100%;
+    max-width: 1200px; /* ANTES: 800px. Permite que el lienzo ocupe el ancho estirado en PC */
+    height: auto;
+    display: block;
+    margin: 1rem auto;
+    background: #f9f9f9;
+    border: 2px solid #2ecc71;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 15px rgba(46, 204, 113, 0.2);
+    cursor: crosshair;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+#fractal-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 0;
+    padding: 1rem;
+    background: rgba(46, 204, 113, 0.05);
+    border: 1px solid rgba(46, 204, 113, 0.2);
+    border-radius: 1rem;
+    width: 100%;
+    max-width: 1200px; /* ANTES: 800px. Mantiene los controles alineados al ancho del canvas */
+}
+
+#fractal-controls button {
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+}
+
+#fractal-status {
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: #2ecc71;
+    transition: all 0.3s ease;
+}
+
+#fractal-iterations-input {
+    padding: 0.4rem 0.6rem;
+    border: 2px solid #2ecc71;
+    border-radius: 0.3rem;
+    font-size: 1rem;
+    font-family: 'Share Tech', monospace;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+#fractal-iterations-input:focus {
+    outline: none;
+    border-color: #27ae60;
+    box-shadow: 0 0 8px rgba(46, 204, 113, 0.3);
+    background-color: #f0fdf9;
+}
+
+/* OPTIMIZACIÓN PARA MOBILE */
+/* Todo este bloque se queda EXACTAMENTE igual, ya que maneja pantallas pequeñas */
+@media only screen and (max-width: 768px) {
+    #tabs-container {
+        gap: 0.3rem;
+    }
+
+    .tab-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    #fractal-canvas {
+        max-width: 100% !important;
+        height: auto !important;
+        border: 1px solid #2ecc71 !important;
+    }
+
+    #fractal-controls {
+        padding: 0.5rem !important;
+        gap: 0.5rem !important;
+        margin: 0.5rem 0 !important;
+    }
+
+    #fractal-controls button {
+        padding: 0.4rem 0.8rem !important;
+        font-size: 0.85rem !important;
+    }
+
+    #fractal-iterations-input {
+        width: 60px !important;
+        font-size: 0.9rem !important;
+    }
+
+    #fractal-status {
+        font-size: 0.75rem !important;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    #fractal-controls button span {
+        display: none;
+    }
+
+    #fractal-controls button b {
+        font-size: 0.75rem;
+    }
+
+    #fractal-iterations-input {
+        width: 50px !important;
+        font-size: 0.8rem !important;
+    }
+}
+/* --- AJUSTE EXCLUSIVO PARA EL FRACTAL EN PANTALLAS GRANDES --- */
+@media only screen and (min-width: 769px) {
+    /* Permitimos que la sección del fractal rompa límites globales */
+    #section-fractal.active {
+        width: 100% !important;
+        max-width: 1250px !important; /* Espacio extra para los paddings del contenedor */
+        margin: 0 auto !important;
+        padding: 0 1.5rem;
+        display: block !important; /* Mantiene la visibilidad si JS usa displays planos */
+    }
+
+    /* Modificamos el contenedor interno del fractal para PC */
+    #fractal-container {
+        max-width: 1200px !important;
+        width: 100% !important;
+    }
+
+    #fractal-canvas {
+        max-width: 1200px !important;
+        width: 100% !important;
+    }
+}
+/* Si tu body o un contenedor principal limita el ancho general, esto lo ensancha solo para el fractal */
+body.fractal-mode {
+    max-width: 100% !important;
+    width: 100% !important;
+}
