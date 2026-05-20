@@ -1,4 +1,3 @@
-// Table didn't need a change
 function buildTable(seq, next, base, loopPoint) {
     base = parseInt(base)
     let tablestr = ''
