@@ -22,6 +22,15 @@
 <body>
 
 <h1>Collatz Calculator</h1>
+
+<!-- Tabs de Navegación -->
+<div id="tabs-container">
+    <button id="tab-calculator" class="tab-btn active">Calculator</button>
+    <button id="tab-fractal" class="tab-btn">Fractal</button>
+</div>
+
+<!-- Sección Calculator (original) -->
+<div id="section-calculator" class="tab-section active">
 <table id="form">
     <tr colspan='2' class="formRow">
         <td><label for="startNum">Number:</label></td>
@@ -56,6 +65,43 @@
     </button>
 </div>
 <div id="seq" title="Click to expand"></div>
+</div><!-- fin section-calculator -->
+
+<!-- Sección Fractal -->
+<div id="section-fractal" class="tab-section">
+    <div id="fractal-container">
+        <canvas id="fractal-canvas" style="border: 2px solid #2ecc71; border-radius: 0.5rem; display: block; margin: 1rem auto; box-shadow: 0 0 15px rgba(46, 204, 113, 0.3);"></canvas>
+
+        <div id="fractal-controls" style="display: flex; flex-direction: column; align-items: center; gap: 1rem; margin: 1rem 0; padding: 1rem; background: rgba(46, 204, 113, 0.05); border-radius: 1rem;">
+
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center;">
+                <button id="fractal-render-btn" style="padding: 0.5rem 1rem;">
+                    <span class="material-icons" style="font-size: 1.2rem; vertical-align: middle;">refresh</span>
+                    Render
+                </button>
+                <button id="fractal-reset-btn" style="padding: 0.5rem 1rem;">
+                    <span class="material-icons" style="font-size: 1.2rem; vertical-align: middle;">restore</span>
+                    Reset View
+                </button>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;">
+                <label for="fractal-iterations-input">Max Iterations:</label>
+                <input type="number" id="fractal-iterations-input" value="50" min="10" max="500" style="width: 80px; padding: 0.3rem; border: 1px solid #2ecc71; border-radius: 0.3rem;">
+                <small style="color: #666;">(mobile: 50-200, desktop: 50-500)</small>
+            </div>
+
+            <div id="fractal-status" style="font-size: 0.85rem; color: #2ecc71; font-weight: bold;">✓ Ready</div>
+
+            <div style="max-width: 600px; font-size: 0.8rem; color: #666; text-align: center; line-height: 1.5;">
+                <strong>Instrucciones:</strong> Click para zoom in • Rueda del ratón para zoom • Reset para volver al inicio<br>
+                <em>Optimizado para 📱 MOBILE (baja resolución) y 💻 DESKTOP</em><br>
+                <small style="color: #999;">Mobile: 50-200 iteraciones | Desktop: 50-500 iteraciones</small>
+            </div>
+        </div>
+    </div>
+</div><!-- fin section-fractal -->
+
 <div id="loader">
     <div id="spinner"></div>
     <span>Loading... Please wait</span>
@@ -123,7 +169,62 @@
 <a id="backToTop" title="Back to top">
     <span class="material-icons">arrow_upward</span>
 </a>
+
+<!-- Scripts -->
 <script src="calculator.js"></script>
+<script src="fractal.js"></script>
+
+<!-- Lógica de Tabs -->
+<script>
+    // Control de tabs
+    const tabCalculator = document.getElementById('tab-calculator');
+    const tabFractal = document.getElementById('tab-fractal');
+    const sectionCalculator = document.getElementById('section-calculator');
+    const sectionFractal = document.getElementById('section-fractal');
+    const bodyElement = document.body; // Capturamos el body
+
+    tabCalculator.addEventListener('click', () => {
+        // Desactiva ambos
+        tabCalculator.classList.remove('active');
+        tabFractal.classList.remove('active');
+        sectionCalculator.classList.remove('active');
+        sectionFractal.classList.remove('active');
+
+        // Removemos el modo ancho del body para volver a la calculadora estrecha
+        bodyElement.classList.remove('fractal-mode');
+
+        // Activa calculator
+        tabCalculator.classList.add('active');
+        sectionCalculator.classList.add('active');
+    });
+
+    tabFractal.addEventListener('click', () => {
+        // Desactiva ambos
+        tabCalculator.classList.remove('active');
+        tabFractal.classList.remove('active');
+        sectionCalculator.classList.remove('active');
+        sectionFractal.classList.remove('active');
+
+        // Añadimos una clase al body para avisarle al CSS que libere el ancho en PC
+        bodyElement.classList.add('fractal-mode');
+
+        // Activa fractal
+        tabFractal.classList.add('active');
+        sectionFractal.classList.add('active');
+
+        // Forzamos el redibujado por si el JS necesita recalcular dimensiones del contenedor expandido
+        if (typeof fractalRenderer !== 'undefined' && fractalRenderer !== null) {
+            setTimeout(() => {
+                const container = document.getElementById('fractal-container');
+                if (container) {
+                    let canvasWidth = Math.min(container.offsetWidth - 20, 1200);
+                    let canvasHeight = canvasWidth / 2;
+                    fractalRenderer.setResolution(canvasWidth, canvasHeight);
+                }
+            }, 50); // Pequeño delay para permitir que el DOM se ensanche primero
+        }
+    });
+</script>
 
 </body>
 
