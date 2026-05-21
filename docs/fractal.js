@@ -113,7 +113,7 @@ class CollatzFractalRenderer {
     }
 
     /**
-     * Renderiza el fractal completo
+     * Renderiza el fractal completo (DINÁMICO qn + p)
      */
     render() {
         if (this.isRendering) {
@@ -133,7 +133,11 @@ class CollatzFractalRenderer {
         const width = this.canvas.width;
         const height = this.canvas.height;
 
-        console.log(`⟳ Renderizando fractal: ${width}x${height}, ${this.maxIterations} iter, ${this.numWorkers} workers`);
+        // --- CAPTURA DINÁMICA DE LA CALCULADORA ---
+        const q = parseFloat(document.getElementById('multiplier').value) || 3;
+        const p = parseFloat(document.getElementById('offset').value) || 1;
+
+        console.log(`⟳ Renderizando fractal dinámico (${q}n + ${p}): ${width}x${height}, ${this.maxIterations} iter`);
 
         // Crea el buffer de imagen
         this.imageData = this.ctx.createImageData(width, height);
@@ -148,7 +152,7 @@ class CollatzFractalRenderer {
 
             if (startRow >= height) break;
 
-            // Envía tarea al worker
+            // Envía tarea al worker con los nuevos parámetros q y p
             this.workers[i].postMessage({
                 width,
                 height,
@@ -159,7 +163,9 @@ class CollatzFractalRenderer {
                 iMin: this.iMin,
                 iMax: this.iMax,
                 maxIter: this.maxIterations,
-                escapeThreshold: this.escapeThreshold
+                escapeThreshold: this.escapeThreshold,
+                multiplier: q,  // <-- Enviamos q
+                offset: p       // <-- Enviamos p
             });
         }
     }
