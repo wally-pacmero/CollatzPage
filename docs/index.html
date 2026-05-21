@@ -7,9 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Collatz Calculator</title>
 
-    <!-- <script src="chart.js"></script>
-    <link rel="stylesheet" href="googlefont.css"> -->
-
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,52 +20,47 @@
 
 <h1>Collatz Calculator</h1>
 
-<!-- Tabs de Navegación -->
 <div id="tabs-container">
     <button id="tab-calculator" class="tab-btn active">Calculator</button>
     <button id="tab-fractal" class="tab-btn">Fractal</button>
 </div>
 
-<!-- Sección Calculator (original) -->
 <div id="section-calculator" class="tab-section active">
-<table id="form">
-    <tr colspan='2' class="formRow">
-        <td><label for="startNum">Number:</label></td>
-        <td><input type='number' id='startNum' value="7" placeholder="Starting Number"></td>
-    </tr>
-    <tr class="formRow">
-        <td><label for="multiplier">Format:</label></td>
-        <td><input type='number' id='multiplier' value="3" max="100" min="-100" placeholder="Multiplier">
-            <span>n+</span>
-            <input type='number' id='offset' value="1" max="100" min="-100" placeholder="Offset">
-        </td>
-    </tr>
-    <tr class="formRow">
-        <td><label for='maxsteps'>Max Steps:</label></td>
-        <td><input type='number' id='maxsteps' value="10000" placeholder="Maximum Steps"></td>
-    </tr>
-    <tr class="formRow">
-        <td><label for='base'>Base <small id="baseLimit">2-36</small> :</label></td>
-        <td><input type='number' id='base' value="2" min="2" max="36" maxlength="2" placeholder="Base (2-36)"><input type="button" id="calculateBTN" value="Calculate"></td>
-    </tr>
-</table>
-<div id="chart"></div>
-<div id="button-container">
-    <button id='summaryBTN'>
-        <span class="material-icons">summarize</span><b>Summary</b>
-    </button>
-    <button id='renderBTN'>
-        <span class="material-icons">show_chart</span><b>Render Chart</b>
-    </button>
-    <button id='downloadBTN'>
-        <span class="material-icons">file_download</span><b>Download</b>
-    </button>
-</div>
-<div id="seq" title="Click to expand"></div>
-</div><!-- fin section-calculator -->
-
-<!-- Sección Fractal -->
-<div id="section-fractal" class="tab-section">
+    <table id="form">
+        <tr class="formRow">
+            <td><label for="startNum">Number:</label></td>
+            <td><input type='number' id='startNum' value="7" placeholder="Starting Number"></td>
+        </tr>
+        <tr class="formRow">
+            <td><label for="multiplier">Format:</label></td>
+            <td><input type='number' id='multiplier' value="3" max="100" min="-100" placeholder="Multiplier">
+                <span>n+</span>
+                <input type='number' id='offset' value="1" max="100" min="-100" placeholder="Offset">
+            </td>
+        </tr>
+        <tr class="formRow">
+            <td><label for='maxsteps'>Max Steps:</label></td>
+            <td><input type='number' id='maxsteps' value="10000" placeholder="Maximum Steps"></td>
+        </tr>
+        <tr class="formRow">
+            <td><label for='base'>Base <small id="baseLimit">2-36</small> :</label></td>
+            <td><input type='number' id='base' value="2" min="2" max="36" maxlength="2" placeholder="Base (2-36)"><input type="button" id="calculateBTN" value="Calculate"></td>
+        </tr>
+    </table>
+    <div id="chart"></div>
+    <div id="button-container">
+        <button id='summaryBTN'>
+            <span class="material-icons">summarize</span><b>Summary</b>
+        </button>
+        <button id='renderBTN'>
+            <span class="material-icons">show_chart</span><b>Render Chart</b>
+        </button>
+        <button id='downloadBTN'>
+            <span class="material-icons">file_download</span><b>Download</b>
+        </button>
+    </div>
+    <div id="seq" title="Click to expand"></div>
+</div><div id="section-fractal" class="tab-section">
     <div id="fractal-container">
         <canvas id="fractal-canvas" style="border: 2px solid #2ecc71; border-radius: 0.5rem; display: block; margin: 1rem auto; box-shadow: 0 0 15px rgba(46, 204, 113, 0.3);"></canvas>
 
@@ -91,7 +83,7 @@
                 <small style="color: #666;">(mobile: 50-200, desktop: 50-500)</small>
             </div>
 
-            <div id="fractal-status" style="font-size: 0.85rem; color: #2ecc71; font-weight: bold;">✓ Ready</div>
+            <div id="fractal-status" style="font-size: 0.85rem; color: #2ecc71; font-weight: bold;">Ready</div>
 
             <div style="max-width: 600px; font-size: 0.8rem; color: #666; text-align: center; line-height: 1.5;">
                 <strong>Instrucciones:</strong> Click para zoom in • Rueda del ratón para zoom • Reset para volver al inicio<br>
@@ -100,12 +92,51 @@
             </div>
         </div>
     </div>
-</div><!-- fin section-fractal -->
 
-<div id="loader">
+    <div style="max-width: 800px; margin: 2rem auto; padding: 1.5rem; background: rgba(46, 204, 113, 0.08); border-left: 4px solid #2ecc71; border-radius: 0.5rem; font-family: 'Share Tech', sans-serif; color: #2c3e50; line-height: 1.6; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+        <h3 style="color: #27ae60; margin-top: 0; font-size: 1.4rem; display: flex; align-items: center; gap: 0.5rem;">
+            <span class="material-icons">architecture</span> ¿Qué estás viendo aquí?
+        </h3>
+
+        <p style="color: #2c3e50;">
+            <strong style="color: #27ae60;">¿Qué es un Fractal?</strong><br>
+            Un fractal es un objeto geométrico cuya estructura básica, fragmentada o aparentemente irregular, se repite a diferentes escalas. Si haces zoom en los bordes de la figura central, notarás que aparecen réplicas infinitas y ramificaciones complejas de la misma estructura original.
+        </p>
+
+        <hr style="border: 0; border-top: 1px solid rgba(46, 204, 113, 0.3); margin: 1rem 0;">
+
+        <p style="color: #2c3e50;">
+            <strong style="color: #27ae60;">El Secreto Matemático: De la Calculadora al Plano Complejo</strong><br>
+            La calculadora tradicional de Collatz opera solo con números enteros discretos (1, 2, 3...). Sin embargo, para dibujar este fractal, tomamos la función de la conjetura generalizada y la extendemos a los <strong>números complejos (\(z = x + iy\))</strong>, donde el eje \(X\) representa la parte real y el eje \(Y\) la parte imaginaria de la pantalla.
+        </p>
+
+        <p style="color: #2c3e50;">
+            En cada píxel, el programa evalúa la ecuación paramétrica basada en tu formato (\(qn + p\)):
+        </p>
+
+        <div style="background: #1e272e; padding: 1rem; border-radius: 0.3rem; text-align: center; font-size: 1.2rem; color: #2ecc71; margin: 1rem 0; box-shadow: inset 0 0 10px rgba(0,0,0,0.5); overflow-x: auto;">
+            $$f(z) = \frac{1}{4} \left[ 2(1 + q)z + 2p - \left( 2(q - 1)z + 2p \right) \cos(\pi z) \right]$$
+        </div>
+
+        <p style="color: #2c3e50;">
+            <strong style="color: #27ae60;">¿Por qué se pinta de colores?</strong><br>
+            El algoritmo inyecta el número complejo de cada píxel en esa fórmula y la repite en un bucle (iteración).
+        </p>
+
+        <ul style="padding-left: 1.5rem; margin: 0.5rem 0; color: #2c3e50;">
+            <li><strong style="color: #fff; background: #2c3e50; padding: 0 5px; border-radius: 3px;">El Núcleo Negro:</strong> Representa los números estables o atrapados en bucles que nunca escapan (el Conjunto de Collatz).</li>
+            <li><strong style="color: #fff; background: #2b5284; padding: 0 5px; border-radius: 3px;">Los Destellos Azules y Púrpuras:</strong> Son números inestables que tienden al infinito. El color indica la <em>velocidad de escape</em>: entre más brillante es el tono, más rápido diverge el número.</li>
+        </ul>
+
+        <p style="margin-top: 1rem; margin-bottom: 0; font-size: 0.95rem; color: #27ae60; font-style: italic; font-weight: bold;">
+            💡 ¡Haz la prueba! Cambia el multiplicador a 5 o 7 en la calculadora, regresa aquí y dale a Render. Verás cómo la gravedad matemática altera las zonas de escape y deforma el universo del fractal.
+        </p>
+    </div>
+</div><div id="loader">
     <div id="spinner"></div>
     <span>Loading... Please wait</span>
 </div>
+
 <div id="summary-bg">
     <div id="summary">
         <div id="summary-top">
@@ -166,53 +197,44 @@
         </table>
     </div>
 </div>
+
 <a id="backToTop" title="Back to top">
     <span class="material-icons">arrow_upward</span>
 </a>
 
-<!-- Scripts -->
 <script src="calculator.js"></script>
 <script src="fractal.js"></script>
 
-<!-- Lógica de Tabs -->
 <script>
-    // Control de tabs
     const tabCalculator = document.getElementById('tab-calculator');
     const tabFractal = document.getElementById('tab-fractal');
     const sectionCalculator = document.getElementById('section-calculator');
     const sectionFractal = document.getElementById('section-fractal');
-    const bodyElement = document.body; // Capturamos el body
+    const bodyElement = document.body;
 
     tabCalculator.addEventListener('click', () => {
-        // Desactiva ambos
         tabCalculator.classList.remove('active');
         tabFractal.classList.remove('active');
         sectionCalculator.classList.remove('active');
         sectionFractal.classList.remove('active');
 
-        // Removemos el modo ancho del body para volver a la calculadora estrecha
         bodyElement.classList.remove('fractal-mode');
 
-        // Activa calculator
         tabCalculator.classList.add('active');
         sectionCalculator.classList.add('active');
     });
 
     tabFractal.addEventListener('click', () => {
-        // Desactiva ambos
         tabCalculator.classList.remove('active');
         tabFractal.classList.remove('active');
         sectionCalculator.classList.remove('active');
         sectionFractal.classList.remove('active');
 
-        // Añadimos una clase al body para avisarle al CSS que libere el ancho en PC
         bodyElement.classList.add('fractal-mode');
 
-        // Activa fractal
         tabFractal.classList.add('active');
         sectionFractal.classList.add('active');
 
-        // Forzamos el redibujado por si el JS necesita recalcular dimensiones del contenedor expandido
         if (typeof fractalRenderer !== 'undefined' && fractalRenderer !== null) {
             setTimeout(() => {
                 const container = document.getElementById('fractal-container');
@@ -221,11 +243,12 @@
                     let canvasHeight = canvasWidth / 2;
                     fractalRenderer.setResolution(canvasWidth, canvasHeight);
                 }
-            }, 50); // Pequeño delay para permitir que el DOM se ensanche primero
+            }, 50);
         }
     });
 </script>
 
-</body>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
+</body>
 </html>
